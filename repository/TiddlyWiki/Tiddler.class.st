@@ -23,6 +23,16 @@ Class {
 }
 
 { #category : #accessing }
+Tiddler >> asDictionary [
+	^ Dictionary new
+		at: 'title' put: self title;
+		at: 'text' put: self text;
+		at: 'created' put: self created asString;
+		at: 'tags' put: self tags;
+		yourself.
+]
+
+{ #category : #accessing }
 Tiddler >> caption [
 
 	^ caption
@@ -37,7 +47,7 @@ Tiddler >> caption: anObject [
 { #category : #accessing }
 Tiddler >> created [
 
-	^ created
+	^ created ifNil: [ created := DateAndTime now ]
 ]
 
 { #category : #accessing }
