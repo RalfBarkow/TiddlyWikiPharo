@@ -34,7 +34,7 @@ Tiddler >> asDictionary [
 
 { #category : #converting }
 Tiddler >> asJson [ 
-	^ STON toStringPretty: self asDictionary 
+	^ STONJSON toStringPretty: self asDictionary 
 ]
 
 { #category : #accessing }
