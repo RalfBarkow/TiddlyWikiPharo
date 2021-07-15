@@ -30,5 +30,5 @@ WikiText >> convertMarkdownLinks [
 		newContent := self content copyReplaceAll: markdownLink with: '[[', linkText, ']'.
 		self content: newContent.
 	].
-	^ self content
+	^ self  content 
 ]
