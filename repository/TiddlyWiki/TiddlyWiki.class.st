@@ -8,10 +8,21 @@ Class {
 	#name : #TiddlyWiki,
 	#superclass : #Object,
 	#instVars : [
-		'tiddlers'
+		'tiddlers',
+		'file'
 	],
 	#category : #'TiddlyWiki-Model'
 }
+
+{ #category : #accessing }
+TiddlyWiki >> file [
+	^ file
+]
+
+{ #category : #accessing }
+TiddlyWiki >> file: anObject [
+	file := anObject
+]
 
 { #category : #'instance creation' }
 TiddlyWiki >> fromJSONString: aString [
@@ -42,4 +53,11 @@ TiddlyWiki >> tiddlers [
 TiddlyWiki >> tiddlers: anOrderedCollection [
 
 	tiddlers := anOrderedCollection
+]
+
+{ #category : #accessing }
+TiddlyWiki >> tiddlersJSONFile [
+	file ifNil: [ self inform: 'You need to export tiddlers as JSON from TiddlyWiki'. 
+		^ nil ].
+	^ file parent / 'tiddlers.json'.
 ]
