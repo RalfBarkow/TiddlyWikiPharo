@@ -34,12 +34,12 @@ WikiText >> convertMarkdownLinks [
 	markdownLinksRegex := '\[([\w|\s]+)\]\((\S+)\)'.
 	"For the explanation of the Regex details see: http://scottradcliff.com/how-to-parse-urls-in-markdown.html"
 	markdownLinks := self content regex: markdownLinksRegex matchesCollect: [:link | link ].
-	markdownLinks ifEmpty: [ ^ self ].
+	markdownLinks ifEmpty: [ ^ self content ].
 	markdownLinks do: [:markdownLink | | linkText closingLinkIndex newContent | 
 		closingLinkIndex := markdownLink indexOf: $].
 		linkText := markdownLink copyFrom: 2 to: closingLinkIndex.
 		newContent := self content copyReplaceAll: markdownLink with: '[[', linkText, ']'.
 		self content: newContent.
 	].
-	^ self
+	^ self content
 ]
