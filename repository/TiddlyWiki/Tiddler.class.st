@@ -11,13 +11,13 @@ Class {
 		'title',
 		'text',
 		'modified',
-		'mofier',
 		'created',
 		'creator',
 		'tags',
 		'type',
 		'list',
-		'caption'
+		'caption',
+		'modifier'
 	],
 	#category : #'TiddlyWiki-Model'
 }
@@ -133,15 +133,15 @@ Tiddler >> modified: anObject [
 ]
 
 { #category : #accessing }
-Tiddler >> mofier [
+Tiddler >> modifier [
 
-	^ mofier
+	^ modifier
 ]
 
 { #category : #accessing }
-Tiddler >> mofier: anObject [
+Tiddler >> modifier: anObject [
 
-	mofier := anObject
+	modifier := anObject
 ]
 
 { #category : #accessing }
