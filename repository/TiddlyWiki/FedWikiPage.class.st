@@ -5,7 +5,8 @@ Class {
 		'url',
 		'title',
 		'story',
-		'journal'
+		'journal',
+		'importJournal'
 	],
 	#category : #'TiddlyWiki-Model'
 }
@@ -24,12 +25,22 @@ FedWikiPage >> dataDictionary [
 FedWikiPage >> fromDataDictionary [
 	title := self dataDictionary at: 'title'.
 	story := self dataDictionary at: 'story'.
-	journal := self dataDictionary at: 'journal'.
+	self importJournal ifTrue: [ journal := self dataDictionary at: 'journal'].
 ]
 
 { #category : #accessing }
 FedWikiPage >> host [
 	^ self url host
+]
+
+{ #category : #accessing }
+FedWikiPage >> importJournal [
+	^ importJournal ifNil: [ importJournal := false ]
+]
+
+{ #category : #accessing }
+FedWikiPage >> importJournal: aBoolean [
+	importJournal := aBoolean
 ]
 
 { #category : #accessing }
@@ -73,7 +84,7 @@ FedWikiPage >> titleSegmentUrl [
 	self isView ifFalse: [
 		self inform: 'Please provide a view url for the FedWiki page.'.
 		^ self].
-	^ self url segments second.
+	^ self url segments last.
 ]
 
 { #category : #accessing }
