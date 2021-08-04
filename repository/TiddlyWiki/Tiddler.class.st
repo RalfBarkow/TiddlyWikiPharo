@@ -86,6 +86,15 @@ Tiddler >> fromMarkdownParsedItems: aCollection [
 	]
 ]
 
+{ #category : #accessing }
+Tiddler >> importFedWikiPage: pageViewUrlString [
+	| pageTitle pageViewUrl pageData |
+	pageViewUrl := pageViewUrlString asZnUrl.
+	pageTitle := pageViewUrl segments second.
+	pageData := (pageViewUrl scheme, '://', pageViewUrl host, '/', pageTitle, '.json') asZnUrl.
+	^ STONJSON fromString: pageData retrieveContents	
+]
+
 { #category : #utilities }
 Tiddler >> itemContentsStringFor: item into: stream [
 	stream 
