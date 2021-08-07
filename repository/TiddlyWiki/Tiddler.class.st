@@ -38,6 +38,12 @@ Tiddler >> asJson [
 ]
 
 { #category : #accessing }
+Tiddler >> asJsonTempFile [
+	MarkupFile exportAsFileOn: FileLocator temp / self title, '.json' containing:self asJson 
+		
+]
+
+{ #category : #accessing }
 Tiddler >> caption [
 
 	^ caption
