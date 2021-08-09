@@ -35,6 +35,7 @@ Tiddler >> asDictionary [
 		at: 'text' put: self text;
 		at: 'created' put: self created asString;
 		at: 'tags' put: self tags;
+		at: 'type' put: self type;
 		yourself.
 ]
 
