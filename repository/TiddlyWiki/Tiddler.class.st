@@ -22,6 +22,12 @@ Class {
 	#category : #'TiddlyWiki-Model'
 }
 
+{ #category : #'instance creation' }
+Tiddler class >> nowLocal [
+	^ (ZTimestampFormat fromString: '200102031605067') 
+			format: (ZTimestamp fromString: Time nowLocal  asDateAndTime asString)
+]
+
 { #category : #accessing }
 Tiddler >> asDictionary [
 	^ Dictionary new
@@ -29,12 +35,19 @@ Tiddler >> asDictionary [
 		at: 'text' put: self text;
 		at: 'created' put: self created asString;
 		at: 'tags' put: self tags;
+		at: 'type' put: self type;
 		yourself.
 ]
 
 { #category : #converting }
 Tiddler >> asJson [ 
 	^ STONJSON toStringPretty: self asDictionary 
+]
+
+{ #category : #accessing }
+Tiddler >> asJsonTempFile [
+	^ MarkupFile exportAsFileOn: FileLocator temp / self title, 'json' containing:self asJson 
+		
 ]
 
 { #category : #accessing }

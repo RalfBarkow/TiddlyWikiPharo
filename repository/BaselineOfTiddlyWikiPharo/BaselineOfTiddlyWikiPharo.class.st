@@ -9,7 +9,11 @@ BaselineOfTiddlyWikiPharo >> baseline: spec [
 	<baseline>
 	spec
 		for: #common 
-		do: [ 
+		do: [
+			"Dependencies"
+			spec baseline: 'ZTimestamp' with: [ spec repository: 'github://svenvc/ztimestamp/repository' ].
+			
+			"Packages" 
 			 spec package: 'TiddlyWikiPharo'
 		]
 ]
