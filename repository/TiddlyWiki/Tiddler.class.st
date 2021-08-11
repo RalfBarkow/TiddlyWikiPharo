@@ -86,6 +86,20 @@ Tiddler >> creator: anObject [
 	creator := anObject
 ]
 
+{ #category : #accessing }
+Tiddler >> fromDictionary: aDictionary [
+	self
+		title: (aDictionary at: 'title');
+		text: (aDictionary at: 'text');
+		tags: (aDictionary at: 'tags' ifAbsentPut: [ nil ]);
+		created: (aDictionary at: 'created' ifAbsentPut: [ nil ]);
+		creator: (aDictionary at: 'creator' ifAbsentPut: [ nil ]);
+		modified: (aDictionary at: 'modified' ifAbsentPut: [ nil ]);
+		modifier: (aDictionary at: 'modifier' ifAbsentPut: [ nil ]);
+		type: (aDictionary at: 'type' ifAbsentPut: [ nil ]);
+		caption: (aDictionary at: 'caption' ifAbsentPut: [ nil ]).
+]
+
 { #category : #'instance creation' }
 Tiddler >> fromMarkdownParsedItems: aCollection [
 	| outputStream |
