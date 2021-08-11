@@ -14,7 +14,7 @@ BaselineOfTiddlyWikiPharo >> baseline: spec [
 			spec baseline: 'ZTimestamp' with: [ spec repository: 'github://svenvc/ztimestamp/repository' ].
 			
 			"Packages" 
-			 spec package: 'TiddlyWikiPharo'
+			 spec package: 'TiddlyWiki'
 		]
 ]
 
