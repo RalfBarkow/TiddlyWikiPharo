@@ -37,6 +37,11 @@ WikiTextGrammar >> linkOpen [
 ]
 
 { #category : #accessing }
+WikiTextGrammar >> linkSea [
+	^ link sea ==> #second
+]
+
+{ #category : #accessing }
 WikiTextGrammar >> start [
 	^ document
 ]

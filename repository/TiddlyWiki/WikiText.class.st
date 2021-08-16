@@ -43,3 +43,10 @@ WikiText >> convertMarkdownLinks [
 	].
 	^ self content
 ]
+
+{ #category : #accessing }
+WikiText >> sample [
+	^ 'The ''quick'' brown ~~flea~~ fox //jumps// over the `lazy` dog.
+	
+	This is a link to HelloThere, and one to [[History of TiddlyWiki]] and [[other link]].'
+]
