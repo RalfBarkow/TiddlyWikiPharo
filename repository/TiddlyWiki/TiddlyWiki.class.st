@@ -29,7 +29,11 @@ TiddlyWiki >> importJSONTiddlers [
 	| tiddlersDict |
 	self tiddlersJSONFile ifNil: [ ^ self ].
 	tiddlersDict := STONJSON fromString: self tiddlersJSONFile contents.
-	self tiddlers: (tiddlersDict collect: [:each | Tiddler new fromDictionary: each ])
+	self tiddlers: (tiddlersDict collect: [:each | 
+		Tiddler new 
+			fromDictionary: each;
+			wiki: self 
+		 ])
 ]
 
 { #category : #accessing }

@@ -17,7 +17,8 @@ Class {
 		'type',
 		'list',
 		'caption',
-		'modifier'
+		'modifier',
+		'wiki'
 	],
 	#category : #'TiddlyWiki-Model'
 }
@@ -131,6 +132,13 @@ Tiddler >> itemContentsStringFor: item into: stream [
 ]
 
 { #category : #accessing }
+Tiddler >> linkedTiddlers [
+	"At the begining we are going to introduce 'pureTiddles' as thos included in the wiki which are not linked
+	via aliases. Future versions of this method sould included internal aliased tiddlers."
+	self rawLinks
+]
+
+{ #category : #accessing }
 Tiddler >> list [
 
 	^ list
@@ -187,6 +195,11 @@ Tiddler >> printOn: aStream [
 		nextPutAll: '( ', self title, ' )'
 ]
 
+{ #category : #'as yet unclassified' }
+Tiddler >> rawAliasedLinks [
+	^ self rawLinks select: [ :each | each includesSubstring: '|'	 ]
+]
+
 { #category : #accessing }
 Tiddler >> rawLinks [
 	^ (WikiTextGrammar new linkSea star parse: self text) asSet
@@ -238,4 +251,14 @@ Tiddler >> type [
 Tiddler >> type: anObject [
 
 	type := anObject
+]
+
+{ #category : #accessing }
+Tiddler >> wiki [
+	^ wiki
+]
+
+{ #category : #accessing }
+Tiddler >> wiki: aTiddlyWiki [
+	wiki := aTiddlyWiki
 ]
