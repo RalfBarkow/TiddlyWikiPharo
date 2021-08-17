@@ -29,7 +29,11 @@ TiddlyWiki >> importJSONTiddlers [
 	| tiddlersDict |
 	self tiddlersJSONFile ifNil: [ ^ self ].
 	tiddlersDict := STONJSON fromString: self tiddlersJSONFile contents.
-	self tiddlers: (tiddlersDict collect: [:each | Tiddler new fromDictionary: each ])
+	self tiddlers: (tiddlersDict collect: [:each | 
+		Tiddler new 
+			fromDictionary: each;
+			wiki: self 
+		 ])
 ]
 
 { #category : #accessing }
@@ -37,6 +41,13 @@ TiddlyWiki >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: '( ', self file basename ,' )'
+]
+
+{ #category : #accessing }
+TiddlyWiki >> taggedWith: aTag [
+	^ self tiddlers select: [:tiddler | 
+		tiddler tags isNotNil and: [tiddler tags includesSubstring: aTag ]
+	]
 ]
 
 { #category : #accessing }
