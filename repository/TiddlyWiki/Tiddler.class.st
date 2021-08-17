@@ -188,6 +188,11 @@ Tiddler >> printOn: aStream [
 ]
 
 { #category : #accessing }
+Tiddler >> rawLinks [
+	^ (WikiTextGrammar new linkSea star parse: self text) asSet
+]
+
+{ #category : #accessing }
 Tiddler >> tags [
 
 	^ tags

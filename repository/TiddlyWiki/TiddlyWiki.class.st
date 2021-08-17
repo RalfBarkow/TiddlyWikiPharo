@@ -40,6 +40,13 @@ TiddlyWiki >> printOn: aStream [
 ]
 
 { #category : #accessing }
+TiddlyWiki >> taggedWith: aTag [
+	^ self tiddlers select: [:tiddler | 
+		tiddler tags isNotNil and: [tiddler tags includesSubstring: aTag ]
+	]
+]
+
+{ #category : #accessing }
 TiddlyWiki >> tiddlers [
 
 	^ tiddlers ifNil: [ tiddlers := OrderedCollection new ]
