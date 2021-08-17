@@ -37,6 +37,18 @@ TiddlyWiki >> importJSONTiddlers [
 ]
 
 { #category : #accessing }
+TiddlyWiki >> networkView [
+	| view |
+	view := GtMondrian new.
+	view nodes
+		with: self tiddlers.
+	view edges
+		connectFromAll: #linkedTiddlers.
+	view layout force.
+	^ view
+]
+
+{ #category : #accessing }
 TiddlyWiki >> printOn: aStream [
 	super printOn: aStream.
 	aStream
