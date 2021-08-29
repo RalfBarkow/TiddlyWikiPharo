@@ -1,6 +1,6 @@
 Class {
-	#name : #WikiTextGrammar,
-	#superclass : #PP2CompositeNode,
+	#name : 'WikiTextGrammar',
+	#superclass : 'PP2CompositeNode',
 	#instVars : [
 		'document',
 		'link',
@@ -8,40 +8,40 @@ Class {
 		'linkContent',
 		'linkClose'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> document [
 	^ link islandInSea star
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> link [
 	^ linkOpen, linkContent, linkClose ==> #second
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> linkClose [
 	^ ']]' asPParser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> linkContent [
 	^ #any asPParser starLazy flatten
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> linkOpen [
 	^ '[[' asPParser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> linkSea [
 	^ link sea ==> #second
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammar >> start [
 	^ document
 ]

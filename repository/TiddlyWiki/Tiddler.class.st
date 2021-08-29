@@ -5,8 +5,8 @@ I implement the standard fields as described in the standard documentation at: <
 
 "
 Class {
-	#name : #Tiddler,
-	#superclass : #Object,
+	#name : 'Tiddler',
+	#superclass : 'Object',
 	#instVars : [
 		'title',
 		'text',
@@ -18,18 +18,21 @@ Class {
 		'list',
 		'caption',
 		'modifier',
-		'wiki'
+		'wiki',
+		'customFields',
+		'bag',
+		'revision'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Tiddler class >> nowLocal [
 	^ (ZTimestampFormat fromString: '200102031605067') 
 			format: (ZTimestamp fromString: Time nowLocal  asDateAndTime asString)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> asDictionary [
 	^ Dictionary new
 		at: 'title' put: self title;
@@ -40,55 +43,71 @@ Tiddler >> asDictionary [
 		yourself.
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 Tiddler >> asJson [ 
 	^ STONJSON toStringPretty: self asDictionary 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> asJsonTempFile [
 	^ MarkupFile exportAsFileOn: FileLocator temp / self title, 'json' containing:self asJson 
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
+Tiddler >> bag [
+	^ bag
+]
+
+{ #category : 'accessing' }
+Tiddler >> bag: aString [
+	bag := aString
+]
+
+{ #category : 'accessing' }
 Tiddler >> caption [
 
 	^ caption
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> caption: anObject [
 
 	caption := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> created [
 
 	^ created ifNil: [ created := DateAndTime now ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> created: anObject [
 
 	created := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> creator [
 
 	^ creator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> creator: anObject [
 
 	creator := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
+Tiddler >> customFields [
+	^ customFields ifNil: [ customFields := Dictionary new]
+]
+
+{ #category : 'accessing' }
 Tiddler >> fromDictionary: aDictionary [
+	| customKeys |
 	self
 		title: (aDictionary at: 'title');
 		text: (aDictionary at: 'text');
@@ -99,9 +118,16 @@ Tiddler >> fromDictionary: aDictionary [
 		modifier: (aDictionary at: 'modifier' ifAbsentPut: [ nil ]);
 		type: (aDictionary at: 'type' ifAbsentPut: [ nil ]);
 		caption: (aDictionary at: 'caption' ifAbsentPut: [ nil ]).
+	self	
+		bag: (aDictionary at: 'bag');
+		revision: (aDictionary at: 'revision' ifAbsentPut: [ nil ]).
+	customKeys := aDictionary keys copyWithoutAll: (self class instanceVariables collect: [ :each | each name ]).
+	customKeys ifEmpty: [ ^ self ].
+	customKeys do: [:key |
+		self customFields at: key put: (aDictionary at: key) ].
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Tiddler >> fromMarkdownParsedItems: aCollection [
 	| outputStream |
 	outputStream := '' writeStream.
@@ -114,7 +140,7 @@ Tiddler >> fromMarkdownParsedItems: aCollection [
 	]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> importFedWikiPage: pageViewUrlString [
 	| pageTitle pageViewUrl pageData |
 	pageViewUrl := pageViewUrlString asZnUrl.
@@ -123,7 +149,7 @@ Tiddler >> importFedWikiPage: pageViewUrlString [
 	^ STONJSON fromString: pageData retrieveContents	
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 Tiddler >> itemContentsStringFor: item into: stream [
 	stream 
 		nextPutAll: item text;
@@ -131,7 +157,7 @@ Tiddler >> itemContentsStringFor: item into: stream [
 		nextPut: Character cr
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> linkedTiddlers [
 	"At the begining we are going to introduce 'pureTiddlers' as thos included in the wiki which are not linked
 	via aliases. Future versions of this method sould included internal aliased tiddlers."
@@ -140,19 +166,19 @@ Tiddler >> linkedTiddlers [
 	^ self wiki tiddlers select: [:tiddler | pureTiddlersTitles includes: tiddler title ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> list [
 
 	^ list
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> list: anObject [
 
 	list := anObject
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 Tiddler >> markdownLinksAsWikiText [
 	"I'm useful to convert _internal_ links between formats, as is a common pattern
 	found when migrating content from Markdown to TiddlyWiki's WikiText.
@@ -166,101 +192,111 @@ Tiddler >> markdownLinksAsWikiText [
 	^ markdownLinks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> modified [
 
 	^ modified
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> modified: anObject [
 
 	modified := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> modifier [
 
 	^ modifier
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> modifier: anObject [
 
 	modifier := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: '( ', self title, ' )'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 Tiddler >> rawAliasedLinks [
 	^ self rawLinks select: [ :each | each includesSubstring: '|'	 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> rawLinks [
 	^ (WikiTextGrammar new linkSea star parse: self text) asSet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
+Tiddler >> revision [
+	^ revision
+]
+
+{ #category : 'accessing' }
+Tiddler >> revision: aNumberString [
+	revision := aNumberString
+]
+
+{ #category : 'accessing' }
 Tiddler >> tags [
 
 	^ tags
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> tags: anObject [
 
 	tags := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> text [
 
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> text: anObject [
 
 	text := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> title [
 
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> title: anObject [
 
 	title := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> type [
 
 	^ type
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> type: anObject [
 
 	type := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> wiki [
 	^ wiki
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Tiddler >> wiki: aTiddlyWiki [
 	wiki := aTiddlyWiki
 ]

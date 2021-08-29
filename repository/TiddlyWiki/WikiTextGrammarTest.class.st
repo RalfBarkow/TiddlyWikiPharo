@@ -1,15 +1,15 @@
 Class {
-	#name : #WikiTextGrammarTest,
-	#superclass : #PP2CompositeNodeTest,
-	#category : #'TiddlyWiki-Model'
+	#name : 'WikiTextGrammarTest',
+	#superclass : 'PP2CompositeNodeTest',
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammarTest >> parserClass [
 	^ WikiTextGrammar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammarTest >> testDocument [
 	| input |
 	input := WikiText new sample.
@@ -17,7 +17,7 @@ WikiTextGrammarTest >> testDocument [
 	self assert: result size equals: 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiTextGrammarTest >> testLink [
 	self
 		parse: '[[Just testing]]'

@@ -1,34 +1,34 @@
 Class {
-	#name : #FedWikiItem,
-	#superclass : #Object,
+	#name : 'FedWikiItem',
+	#superclass : 'Object',
 	#instVars : [
 		'text',
 		'id',
 		'type'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiItem >> fromDictionary: aDictionary [ 
 	text := aDictionary at: 'text'.
 	id := aDictionary at: 'id'.
 	type := aDictionary at: 'type'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiItem >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: '( ',self type, ' | ', self text, ' )'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiItem >> text [
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiItem >> type [
 	^ type
 ]

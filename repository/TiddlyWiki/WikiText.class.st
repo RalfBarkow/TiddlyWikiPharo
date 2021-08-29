@@ -1,34 +1,34 @@
 Class {
-	#name : #WikiText,
-	#superclass : #Object,
+	#name : 'WikiText',
+	#superclass : 'Object',
 	#instVars : [
 		'content'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiText >> content [
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiText >> content: aString [
 	content := aString
 ]
 
-{ #category : #conversions }
+{ #category : 'conversions' }
 WikiText >> converMarkdownBold [
 	self content: (self content copyReplaceAll: '**' with: '''''').
 ]
 
-{ #category : #conversions }
+{ #category : 'conversions' }
 WikiText >> convertMarkdownBold [
 	self content: (self content copyReplaceAll: '**' with: '''''').
 	^ self.
 ]
 
-{ #category : #conversions }
+{ #category : 'conversions' }
 WikiText >> convertMarkdownLinks [
 	| markdownLinks markdownLinksRegex |
 	markdownLinksRegex := '\[([\w|\s]+)\]\((\S+)\)'.
@@ -44,7 +44,7 @@ WikiText >> convertMarkdownLinks [
 	^ self content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WikiText >> sample [
 	^ 'The ''quick'' brown ~~flea~~ fox //jumps// over the `lazy` dog.
 	

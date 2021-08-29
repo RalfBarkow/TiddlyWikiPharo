@@ -1,6 +1,6 @@
 Class {
-	#name : #FedWikiPage,
-	#superclass : #Object,
+	#name : 'FedWikiPage',
+	#superclass : 'Object',
 	#instVars : [
 		'url',
 		'title',
@@ -8,10 +8,10 @@ Class {
 		'journal',
 		'importJournal'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> dataDictionary [
 	| dataUrl |
 	self isView ifFalse: [
@@ -21,34 +21,34 @@ FedWikiPage >> dataDictionary [
 	^ STONJSON fromString: dataUrl asUrl retrieveContents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> fromDataDictionary [
 	title := self dataDictionary at: 'title'.
 	story := self dataDictionary at: 'story'.
 	self importJournal ifTrue: [ journal := self dataDictionary at: 'journal'].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> host [
 	^ self url host
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> importJournal [
 	^ importJournal ifNil: [ importJournal := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> importJournal: aBoolean [
 	importJournal := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> isView [
 	^ self url firstPathSegment = 'view'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> jsonData [
 	| dataUrl |
 	self isView ifFalse: [
@@ -57,29 +57,29 @@ FedWikiPage >> jsonData [
 	dataUrl := self scheme , '://', self host, self titleSegmentUrl, '.json'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: '( ', self title, ' | ', self story size asString, ' items story )'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> scheme [
 	^ self url scheme
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> story [
 	^ story
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> title [
 	^ title.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> titleSegmentUrl [
 	self isView ifFalse: [
 		self inform: 'Please provide a view url for the FedWiki page.'.
@@ -87,12 +87,12 @@ FedWikiPage >> titleSegmentUrl [
 	^ self url segments last.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> url [
 	^ url
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FedWikiPage >> url: aString [
 	url  := aString asZnUrl
 ]

@@ -1,1 +1,1 @@
-Package { #name : #TiddlyWiki }
+Package { #name : 'TiddlyWiki' }

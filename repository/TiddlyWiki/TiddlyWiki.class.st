@@ -5,26 +5,26 @@ More information:
 https://tiddlywiki.com/
 "
 Class {
-	#name : #TiddlyWiki,
-	#superclass : #Object,
+	#name : 'TiddlyWiki',
+	#superclass : 'Object',
 	#instVars : [
 		'tiddlers',
 		'file'
 	],
-	#category : #'TiddlyWiki-Model'
+	#category : 'TiddlyWiki-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> file [
 	^ file
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> file: anObject [
 	file := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> importJSONTiddlers [
 	| tiddlersDict |
 	self tiddlersJSONFile ifNil: [ ^ self ].
@@ -36,7 +36,7 @@ TiddlyWiki >> importJSONTiddlers [
 		 ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> networkView [
 	| view |
 	view := GtMondrian new.
@@ -48,33 +48,33 @@ TiddlyWiki >> networkView [
 	^ view
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPutAll: '( ', self file basename ,' )'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> taggedWith: aTag [
 	^ self tiddlers select: [:tiddler | 
 		tiddler tags isNotNil and: [tiddler tags includesSubstring: aTag ]
 	]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> tiddlers [
 
 	^ tiddlers ifNil: [ tiddlers := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> tiddlers: anOrderedCollection [
 
 	tiddlers := anOrderedCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TiddlyWiki >> tiddlersJSONFile [
 	file ifNil: [ self inform: 'You need to export tiddlers as JSON from TiddlyWiki'. 
 		^ nil ].
