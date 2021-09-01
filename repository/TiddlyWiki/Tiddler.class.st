@@ -117,9 +117,8 @@ Tiddler >> fromDictionary: aDictionary [
 		modified: (aDictionary at: 'modified' ifAbsentPut: [ nil ]);
 		modifier: (aDictionary at: 'modifier' ifAbsentPut: [ nil ]);
 		type: (aDictionary at: 'type' ifAbsentPut: [ nil ]);
-		caption: (aDictionary at: 'caption' ifAbsentPut: [ nil ]).
-	self	
-		bag: (aDictionary at: 'bag');
+		caption: (aDictionary at: 'caption' ifAbsentPut: [ nil ]);
+		bag: (aDictionary at: 'bag' ifAbsentPut: [ nil ]);
 		revision: (aDictionary at: 'revision' ifAbsentPut: [ nil ]).
 	customKeys := aDictionary keys copyWithoutAll: (self class instanceVariables collect: [ :each | each name ]).
 	customKeys ifEmpty: [ ^ self ].

@@ -25,7 +25,7 @@ TiddlyWiki >> file: anObject [
 ]
 
 { #category : 'accessing' }
-TiddlyWiki >> importJSONTiddlers [
+TiddlyWiki >> importJSONTiddlersFile [
 	| tiddlersDict |
 	self tiddlersJSONFile ifNil: [ ^ self ].
 	tiddlersDict := STONJSON fromString: self tiddlersJSONFile contents.
