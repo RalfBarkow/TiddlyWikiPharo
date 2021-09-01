@@ -15,6 +15,13 @@ Class {
 }
 
 { #category : 'accessing' }
+TiddlyWiki >> exportSTONTiddlersFile [
+	| stonFile |
+	stonFile := self tiddlersJSONFile withoutExtension, 'ston'.
+	^ MarkupFile exportAsFileOn: stonFile containing:(STON toStringPretty: self) 
+]
+
+{ #category : 'accessing' }
 TiddlyWiki >> file [
 	^ file
 ]
