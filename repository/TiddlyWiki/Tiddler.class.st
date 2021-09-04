@@ -40,6 +40,12 @@ Tiddler >> asDictionary [
 		at: 'created' put: self created asString;
 		at: 'tags' put: self tags;
 		at: 'type' put: self type;
+		at: 'creator' put: self creator;
+		at: 'modifier' put: self modifier;
+		at: 'modified' put: self modified;
+		at: 'bag' put: self bag;
+		at: 'revision' put: self revision;
+		at: 'customFields' put: self customFields;
 		yourself.
 ]
 
@@ -52,6 +58,11 @@ Tiddler >> asJson [
 Tiddler >> asJsonTempFile [
 	^ MarkupFile exportAsFileOn: FileLocator temp / self title, 'json' containing:self asJson 
 		
+]
+
+{ #category : 'accessing' }
+Tiddler >> asKmlWithTemplate: aTemplate [
+	^ aTemplate asMustacheTemplate value: self asDictionary
 ]
 
 { #category : 'accessing' }
