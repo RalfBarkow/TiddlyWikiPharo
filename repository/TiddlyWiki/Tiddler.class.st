@@ -61,11 +61,6 @@ Tiddler >> asJsonTempFile [
 ]
 
 { #category : 'accessing' }
-Tiddler >> asKmlWithTemplate: aTemplate [
-	^ aTemplate asMustacheTemplate value: self asDictionary
-]
-
-{ #category : 'accessing' }
 Tiddler >> bag [
 	^ bag
 ]
@@ -114,6 +109,11 @@ Tiddler >> creator: anObject [
 { #category : 'accessing' }
 Tiddler >> customFields [
 	^ customFields ifNil: [ customFields := Dictionary new]
+]
+
+{ #category : 'accessing' }
+Tiddler >> exportWithTemplate: aTemplate [
+	^ aTemplate asMustacheTemplate value: self asDictionary
 ]
 
 { #category : 'accessing' }
