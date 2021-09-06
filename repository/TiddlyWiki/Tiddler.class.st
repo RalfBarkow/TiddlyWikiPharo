@@ -121,7 +121,7 @@ Tiddler >> fromDictionary: aDictionary [
 	| customKeys |
 	self
 		title: (aDictionary at: 'title');
-		text: (aDictionary at: 'text');
+		text: (aDictionary at: 'text' ifAbsentPut: [ nil ]);
 		tags: (aDictionary at: 'tags' ifAbsentPut: [ nil ]);
 		created: (aDictionary at: 'created' ifAbsentPut: [ nil ]);
 		creator: (aDictionary at: 'creator' ifAbsentPut: [ nil ]);
